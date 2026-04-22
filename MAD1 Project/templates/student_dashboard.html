@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Dashboard</title>
+    
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .container {
+            max-width: 600px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="canvas">
+            <nav class="navbar bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand">Welcome {{student.name}}</a>
+                    <div>
+                        <a href="/edit_student/{{student.id}}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">edit profile</a>
+                        |
+                        <a href="/student_history/{{student.id}}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">History</a>
+                        |
+                        <a href="/logout" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Logout</a>
+                    </div>
+                </div>
+            </nav>
+
+            <h4 class="mt-5">Organizations</h4>
+            <ul class="list-group">
+                {% for company in organizations %}
+                <li class="list-group-item">
+                    {{company.name}}
+                    <a href="/view_company_details/{{company.id}}/{{student.id}}" class="btn btn-info btn-sm text-white">view details</a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="mt-4">
+                <h3>Applied Drives</h3>
+                <table class="table table-hover border text-center">
+                    <thead>
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>Drive Name</th>
+                            <th>Company</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app_drive in applied_drives %}
+                        <tr>
+                            <td>{{app_drive.id}}</td>
+                            <td>{{app_drive.drive.drive_name}}</td>
+                            <td>{{app_drive.drive.company.name}}</td>
+                            <td>{{app_drive.applied_on}}</td>
+                            <td>{{app_drive.status}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

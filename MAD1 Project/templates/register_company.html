@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Company Register Page</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <div id="main">
+        <div id="canvas">
+            <div id="form-body">
+                <form action="/register/company" method="POST">
+                    {% if info %}
+                        <p style="color: red; background-color: #ffd2d2; padding: 10px; border: 1px solid red;">
+                            {{ info }}
+                        </p>
+                    {% endif %}
+                    <h2 class="text-center">Company Registration</h2>
+                    <div class="mb-2">
+                        <label for="company_name" class="form-label">Company Name *</label>
+                        <input type="text" class="form-control" id="company_name" name="name" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="email" class="form-label">Email *</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="password" class="form-label">Password *</label>
+                        <input type="password" class="form-control" id="password" name="pwd" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="hr_cont_name" class="form-label">HR Name</label>
+                        <input type="text" class="form-control" id="hr_cont_name" name="hr_name" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="hr_cont_no" class="form-label">HR Contact Number</label>
+                        <input type="text" class="form-control" id="hr_cont_no" name="phone" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="website" class="form-label">Website</label>
+                        <input type="text" class="form-control" id="website" name="website" placeholder="https://..." required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="about" class="form-label">About Company</label>
+                        <textarea id="about" class="form-control" rows="3" name="about" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary text-center" value="Register">
+                        <br>
+                        Already have an account?
+                        <a href="/login">login</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

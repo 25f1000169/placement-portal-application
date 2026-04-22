@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student History</title>
+    
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <div id="main">
+        <div id="canvas">
+            <nav class="navbar bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand">Student Application History</a>
+                    <a class="d-flex btn btn-primary" href="/student/{{student.id}}">Back</a>
+                </div>
+            </nav>
+
+            <div class="container mt-5">
+                <h4 class="d-inline">Student Name :</h4>
+                <h5 class="d-inline">{{student.name}}</h5>
+            </div>
+
+            <div class="container mt-3">
+                <h4 class="d-inline">Department :</h4>
+                <h5 class="d-inline">{{student.dept}}</h5>
+            </div>
+            
+            <table class="table table-bordered mt-5 ">
+                <thead>
+                    <tr>
+                        <th>Drive No.</th>
+                        <th>Mode</th>
+                        <th>Job Title</th>
+                        <th>Results</th>
+                        <th>Remark</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appl in applications %}
+                    <tr>
+                        <td>{{appl.drive.id}}</td>
+                        <td>{{appl.drive.mode}}</td>
+                        <td>{{appl.drive.title}}</td>
+                        <td>{{appl.status}}</td>
+                        <td>{{appl.remarks}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</body>
+</html>
