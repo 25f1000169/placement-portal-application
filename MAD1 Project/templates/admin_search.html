@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Search</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <div id="main">
+        <div id="canvas">
+            <nav class="navbar bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand">Search</a>
+                    <a href="/admin" class="btn btn-outline-secondary">Back to Dashboard</a>
+                </div>
+            </nav>
+
+            <div class="mt-4">
+                <form action="/admin/search" method="GET" class="d-flex gap-2">
+                    <select name="type" class="form-select w-auto">
+                        <option value="student" {% if search_type == 'student' %}selected{% endif %}>Student</option>
+                        <option value="company" {% if search_type == 'company' %}selected{% endif %}>Company</option>
+                    </select>
+                    <input type="text" name="query" class="form-control" placeholder="Search by name, email, roll no, phone..." value="{{query}}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+
+            {% if query %}
+                {% if search_type == 'student' %}
+                    <div class="mt-4">
+                        <h5>Student Results</h5>
+                        {% if results_students %}
+                            <table class="table table-hover border text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Roll No</th>
+                                        <th>Dept</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for s in results_students %}
+                                    <tr>
+                                        <td>{{s.name}}</td>
+                                        <td>{{s.email}}</td>
+                                        <td>{{s.rollno}}</td>
+                                        <td>{{s.dept}}</td>
+                                        <td>{{s.status}}</td>
+                                        <td>
+                                            {% if s.status == 'Active' %}
+                                                <a href="/blacklist_student/{{s.id}}" class="btn btn-outline-danger btn-sm">Blacklist</a>
+                                            {% else %}
+                                                <span class="text-muted">Blocked</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p>No students found.</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="mt-4">
+                        <h5>Company Results</h5>
+                        {% if results_companies %}
+                            <table class="table table-hover border text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>HR Name</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for c in results_companies %}
+                                    <tr>
+                                        <td>{{c.name}}</td>
+                                        <td>{{c.email}}</td>
+                                        <td>{{c.hr_name}}</td>
+                                        <td>{{c.status}}</td>
+                                        <td>
+                                            {% if c.status == 'Approved' %}
+                                                <a href="/blacklist_reg_company/{{c.id}}" class="btn btn-outline-danger btn-sm">Blacklist</a>
+                                            {% elif c.status == 'Pending' %}
+                                                <a href="/approved_comp_application/{{c.id}}" class="btn btn-outline-success btn-sm">Approve</a>
+                                            {% else %}
+                                                <span class="text-muted">{{c.status}}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p>No companies found.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+</html>
