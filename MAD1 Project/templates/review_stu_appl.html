@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Application</title>
+    
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        body { background-color: #f4f7f6; padding-top: 50px; }
+        .details-container { background: white; padding: 30px; border-radius: 10px; }
+        .label-text { font-weight: bold; color: #555; margin-bottom: 0; }
+        .data-text { margin-bottom: 20px; color: #000; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 details-container">
+            
+            <div class="border-bottom pb-3 mb-4">
+                <h2 class="text-primary">Student Application</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="label-text">Student Name</p>
+                    <p class="data-text">{{ stu_app.student.name }}</p>
+
+                    <p class="label-text">Department</p>
+                    <p class="data-text">{{ stu_app.student.dept }}</p>
+                    
+                    <p class="label-text">Applied On</p>
+                    <p class="data-text">{{ stu_app.applied_on }}</p>
+                </div>
+                
+                <div class="col-md-6">
+                    <p class="label-text">Drive</p>
+                    <p class="data-text">{{ stu_app.drive.drive_name }}</p>
+
+                    <p class="label-text">Job Title</p>
+                    <p class="data-text">{{ stu_app.drive.title }}</p>
+
+                    <p class="label-text">Current Status</p>
+                    <p class="data-text">{{stu_app.status}}</p>
+
+                    <p class="label-text">Remark</p>
+                    <p class="data-text">{{stu_app.remarks}}</p>
+                </div>
+            </div>
+
+            <div class="d-flex mt-4 pt-3 border-top gap-2">
+                <a href="{{ stu_app.student.resume }}" target="_blank" class="btn btn-primary">Resume</a>
+                
+                <form class="d-flex gap-2 flex-grow-1" action="/review_stu_appl/{{stu_app.drive_id}}/{{stu_app.student_id}}" method="POST">
+                    <select class="form-select" name="result" required>
+                        <option value="">Select Status</option>
+                        <option value="Shortlist">Shortlist</option>
+                        <option value="Waiting">Waiting</option>
+                        <option value="Selected">Selected</option>
+                        <option value="Reject">Reject</option>
+                    </select>
+                    <input type="text" class="form-control" name="remarks" placeholder="Remarks (optional)" value="{{stu_app.remarks}}">
+                    <input type="submit" class="btn btn-success" value="Save">
+                </form>
+
+            </div>
+
+            <div class="mt-4 text-end">
+                <a href="/updates_on_drive/{{stu_app.drive_id}}" class="btn btn-secondary me-2">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

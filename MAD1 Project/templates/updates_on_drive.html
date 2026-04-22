@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Updates on Application for the Drive</title>
+    
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .container {
+            max-width: 600px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="canvas">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <h3>Update Application for the Drive</h3>
+                    <a class="d-flex btn btn-primary" href="/company/{{drive.company_id}}">Back</a>
+                </div>
+            </nav>
+
+            <div class=" mt-5">
+                <h4 class="d-inline">Job Title :</h4>
+                <h5 class="d-inline">{{drive.title}}</h5>
+            </div>
+
+            <h4 class="mt-5">Recieved Application</h4>
+            <ul class="list-group">
+                {% for appl in applications %}
+                    {% if appl.student.status == "Active" %}
+                        <li class="list-group-item">
+                            {{appl.student.name}}
+                            <span class="badge bg-warning text-dark">{{appl.status}}</span>
+                            <a href="/review_stu_appl/{{drive.id}}/{{appl.student_id}}" class="btn btn-info btn-sm text-white">review application</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <!-- <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-success">save</button>
+            </div> -->
+            
+        </div>
+    </div>
+</body>
+</html>
