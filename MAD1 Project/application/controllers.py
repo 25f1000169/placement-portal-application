@@ -58,7 +58,6 @@ def login():
                     error = "Your account is blocked."
             else:
                 error = "Invalid username or password. Please try again."
-
     return render_template("login.html", error=error)
 
 @app.route("/logout")
